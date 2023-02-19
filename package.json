@@ -1,0 +1,27 @@
+{
+  "name": "electron-css-injector",
+  "version": "1.0.0",
+  "description": "Inject css in your electron app.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArthurLobopro/electron-css-injector.git"
+  },
+  "keywords": [],
+  "author": "Arthur Lobo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ArthurLobopro/electron-css-injector/issues"
+  },
+  "homepage": "https://github.com/ArthurLobopro/electron-css-injector#readme",
+  "devDependencies": {
+    "@types/node": "^18.14.0",
+    "typescript": "^4.9.5"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ]
+}
