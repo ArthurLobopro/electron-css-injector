@@ -4,6 +4,9 @@
   "description": "Inject css in your electron app.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ArthurLobopro/electron-css-injector.git"
