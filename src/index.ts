@@ -1,9 +1,5 @@
 import path from "node:path"
 
-import { ipcRenderer } from "electron"
-
-ipcRenderer.sendSync("create-css-protocol")
-
 /**
  * Injects a CSS file into the DOM
  * @param css_path The path to the CSS file
