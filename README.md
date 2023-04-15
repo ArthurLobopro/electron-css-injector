@@ -6,7 +6,12 @@ Inject css in your electron app.
 
 * Install the package in your project with `yarn add electron-css-injector` or `npm install electron-css-injector` 
 
-* In your preload script add: 
+* In your main script, add:
+```typescript
+import "electron-css-injector/main"
+```
+
+* In your preload script, add: 
 
 ```typescript
 import { injectCSS } from "electron-css-injector"

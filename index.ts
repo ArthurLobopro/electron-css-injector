@@ -1,4 +1,8 @@
-import path from "path"
+import path from "node:path"
+
+import { ipcRenderer } from "electron"
+
+ipcRenderer.sendSync("create-css-protocol")
 
 /**
  * Injects a CSS file into the DOM
@@ -13,8 +17,10 @@ export function injectCSS(css_path: string, css_id?: string) {
             return true
         }
 
+        const file_regex = process.platform === "win32" ? /file:\\\\/g : /file:\/\//g
+
         return (
-            path.normalize(link.getAttribute('href') as string).replace(/file:\\\\/g, "") ===
+            path.normalize(link.getAttribute('href') as string).replace(file_regex, "") ===
             path.normalize(css_path)
         )
     })
@@ -22,7 +28,7 @@ export function injectCSS(css_path: string, css_id?: string) {
     if (!css_exists) {
         const css = document.createElement('link')
         css.rel = "stylesheet"
-        css.href = css_path
+        css.href = `css://${css_path}`
         if (css_id) {
             css.dataset.id = css_id
         }
