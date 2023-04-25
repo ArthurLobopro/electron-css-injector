@@ -6,7 +6,6 @@ function createCSSProtocol() {
 
     protocol.registerFileProtocol("css", (request, callback) => {
         const url = request.url.replace(protocol_regex, "")
-        console.log(url)
         callback({ path: path.normalize(url) })
     })
 }
