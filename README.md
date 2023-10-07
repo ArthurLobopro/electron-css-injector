@@ -1,6 +1,6 @@
 # electron-css-injector
 
-Inject css in your electron app.
+Inject css in your electron app using `protocol` api.
 
 ## How to use
 
