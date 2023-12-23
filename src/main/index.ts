@@ -1,7 +1,7 @@
 import { app, protocol } from "electron"
 import path from "node:path"
 
-function createCSSProtocol() {
+function legacyCreateCSSProtocol() {
     const protocol_regex = /^css:(\/\/)/g
 
     protocol.registerFileProtocol("css", (request, callback) => {
@@ -11,7 +11,7 @@ function createCSSProtocol() {
 }
 
 if (app.isReady()) {
-    createCSSProtocol()
+    legacyCreateCSSProtocol()
 } else {
-    app.on("ready", createCSSProtocol)
+    app.on("ready", legacyCreateCSSProtocol)
 }
