@@ -20,7 +20,7 @@
   "homepage": "https://github.com/ArthurLobopro/electron-css-injector#readme",
   "devDependencies": {
     "@types/node": "^18.14.0",
-    "electron": "^24.1.2",
+    "electron": "25",
     "typescript": "^4.9.5"
   },
   "files": [
