@@ -1,7 +1,7 @@
-import { app, protocol } from "electron"
+import { app, net, protocol } from "electron"
 import path from "node:path"
 
-function createCSSProtocol() {
+function legacyCreateCSSProtocol() {
     const protocol_regex = /^css:(\/\/)/g
 
     protocol.registerFileProtocol("css", (request, callback) => {
@@ -10,26 +10,31 @@ function createCSSProtocol() {
     })
 }
 
-if (app.isReady()) {
-    createCSSProtocol()
-} else {
-    app.on("ready", createCSSProtocol)
+function createCSSProtocol() {
+    protocol.handle('css', (request) =>
+        net.fetch('file://' + request.url.slice('css://'.length)))
 }
 
-// ipcMain.on("create-css-protocol", (event) => {
-//     const win = BrowserWindow.fromId(event.sender.id) as BrowserWindow
+function activate() {
+    const isVersionBiggerOrEqualTo25 = (
+        () => {
+            const version = process.versions.electron
+            const versionArray = version.split(".")
+            return Number(versionArray[0]) >= 25
+        }
+    )()
 
-//     const protocol_regex = /^css:(\/\/)/g
+    const createHandler = (
+        isVersionBiggerOrEqualTo25 ?
+            createCSSProtocol
+            : legacyCreateCSSProtocol
+    )
 
-//     const alreadyRegistered = win.webContents.session.protocol.isProtocolRegistered("css")
+    createHandler()
+}
 
-//     if (alreadyRegistered) {
-//         console.log("CSS protocol already registered")
-//     } else {
-//         win.webContents.session.protocol.registerFileProtocol("css", (request, callback) => {
-//             const url = request.url.replace(protocol_regex, "")
-//             console.log(url)
-//             callback({ path: path.normalize(url) })
-//         })
-//     }
-// })
+if (app.isReady()) {
+    activate()
+} else {
+    app.on("ready", activate)
+}
