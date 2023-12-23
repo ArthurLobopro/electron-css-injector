@@ -15,22 +15,26 @@ function createCSSProtocol() {
         net.fetch('file://' + request.url.slice('css://'.length)))
 }
 
-const isVersionBiggerOrEqualTo25 = (
-    () => {
-        const version = process.versions.electron
-        const versionArray = version.split(".")
-        return Number(versionArray[0]) >= 25
-    }
-)()
+function activate() {
+    const isVersionBiggerOrEqualTo25 = (
+        () => {
+            const version = process.versions.electron
+            const versionArray = version.split(".")
+            return Number(versionArray[0]) >= 25
+        }
+    )()
 
-const createHandler = (
-    isVersionBiggerOrEqualTo25 ?
-        createCSSProtocol
-        : legacyCreateCSSProtocol
-)
+    const createHandler = (
+        isVersionBiggerOrEqualTo25 ?
+            createCSSProtocol
+            : legacyCreateCSSProtocol
+    )
+
+    createHandler()
+}
 
 if (app.isReady()) {
-    createHandler()
+    activate()
 } else {
-    app.on("ready", createHandler)
+    app.on("ready", activate)
 }
